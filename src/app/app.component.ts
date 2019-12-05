@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'firechat';
+  public items: any;
+  constructor(private angularFire:AngularFireDatabase){
+      this.angularFire.list('/logs').valueChanges().subscribe(res=>{
+        console.log(res);
+        
+        this.items=res;
+        
+      })
+      
+      
+  }
+      
+  
 }
